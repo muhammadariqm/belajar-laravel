@@ -28,8 +28,16 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $user = Auth::user(); // ambil user yang sedang login
+        return view('dashboard', compact('user')); // kirim ke view
     }
+
+    public function profil()
+    {
+        $user = Auth::user(); // ambil user yang sedang login
+        return view('profil', compact('user')); // kirim ke view
+    }
+
 
     public function logout(Request $request)
     {
