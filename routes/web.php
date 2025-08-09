@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfilController;
-use Illuminate\Support\Facades\Auth;
-
-
 
 
 
@@ -24,6 +21,10 @@ Route::get('/kontak', function () {
 
 Route::get('/profil', function () {
     return view('profil');
+});
+
+Route::get('/setings', function () {
+    return view('setings');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');

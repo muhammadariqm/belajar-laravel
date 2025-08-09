@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('img/UTDI-logo.png') }}">
-    <title>Document</title>
+    <title>Profil</title>
 
     {{-- font --}}
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
@@ -27,7 +27,7 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <div class="shrink-0">
-            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="size-8" style="filter: drop-shadow(0 0 5px white);"  />
+            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="size-10 rounded-full" style="filter: drop-shadow(0 0 5px white);"  />
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
@@ -60,8 +60,8 @@
 
               <el-menu anchor="bottom end" popover class="w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Your Profile</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Settings</a>
-                <a href="/" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Sign out</a>
+                <a href="{{url('setings')}}" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Settings</a>
+                <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Sign out</a>
               </el-menu>
             </el-dropdown>
           </div>
@@ -110,7 +110,7 @@
         </div>
         <div class="mt-3 space-y-1 px-2">
           <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your Profile</a>
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
+          <a href="{{ url('setings') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
           <a href="{{ route('logout') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign out</a>
         </div>
       </div>
@@ -128,50 +128,61 @@
       <!-- Your content -->
       <div>
   <div class="px-4 sm:px-0">
-    <h3 class="text-base/7 font-semibold text-gray-900">Data Diri</h3>
-    {{-- <p class="mt-1 max-w-2xl text-sm/6 text-gray-500">{{ $user->nim }}</p> --}}
+        <h3 class="text-base/7 font-semibold text-gray-900" >Data Diri</h3>
+        {{-- <p class="mt-1 text-sm/6 text-gray-500">{{ $user->nim }}</p> --}}
+        <div class="">
+            <img src="{{ asset('img/user.png') }}" alt="" class="" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>    
   </div>
-  <div class="mt-6 border-t border-gray-100">
-    <dl class="divide-y divide-gray-100">
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+  <div class="mt-6 ">
+    <dl class="divide-y divide-gray-100" style="padding: 15px; background-color: rgba(79, 93, 166, 0.481); border-radius: 10px;">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Full name</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->nama }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">NIM</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->nim }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Fakultas</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->fakultas }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Prodi</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->prodi }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Email address</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->email }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Tempat Tanggal Lahir</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->tgl_lahir }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Agama</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->agama }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">No.telp</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->telepon }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Status Mahasiswa</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->status }}</dd>
       </div>
-      <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Asal Negara</dt>
         <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->asal_negara }}</dd>
+      </div>
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm/6 font-medium text-gray-900">Jenis Kelamin</dt>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  Pria</dd>
+      </div>
+      <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm/6 font-medium text-gray-900">Asal Sekolah</dt>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  -</dd>
       </div>
     </dl>
   </div>
