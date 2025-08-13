@@ -14,10 +14,22 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nim')->unique();
+            $table->string('nama');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->date('tgl_lahir')->nullable();
+            $table->string('status')->nullable();
+            $table->string('fakultas')->nullable();
+            $table->string('prodi')->nullable();
+            $table->string('asal_negara')->nullable();
+            $table->string('asal_sekolah')->nullable();
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('telepon')->nullable();
+            $table->string('agama')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

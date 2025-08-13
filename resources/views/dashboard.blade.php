@@ -35,7 +35,7 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <div class="shrink-0">
-            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="size-8" style="filter: drop-shadow(0 0 5px white);"  />
+            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="w-10 h-10 rounded-full object-cover" style="filter: drop-shadow(0 0 5px white);"  />
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
@@ -59,12 +59,16 @@
               <button class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
-                <img src="{{ asset('img/user.png')}}" alt="{{ $user->name }}" class="size-8 rounded-full" />
+                <img 
+                    src="{{ Auth::user()->profile_picture ? asset('profile_picture/'.Auth::user()->profile_picture) . '?v=' . time() : asset('img/user.png') }}" 
+                    alt="{{ $user->name }}" 
+                    class="w-10 h-10 rounded-full object-cover"
+                />
               </button>
 
               <el-menu anchor="bottom end" popover class="w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
                 <a href="{{ url('profil') }}" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Your Profile</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Settings</a>
+                <a href="{{ url('setings') }}" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Settings</a>
                 <a href="/" class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Sign out</a>
               </el-menu>
             </el-dropdown>

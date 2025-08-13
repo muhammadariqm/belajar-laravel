@@ -38,6 +38,45 @@ class AuthController extends Controller
         return view('profil', compact('user')); // kirim ke view
     }
 
+    // setings
+    public function setings()
+    {
+        return view('setings', [
+            'user' => Auth::user()
+        ]);
+    }
+
+
+    public function showRegisterForm()
+    {
+        return view('register');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nim' => 'required|unique:users',
+            'nama' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'tgl_lahir' => 'required|string',
+            'status' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'asal_sekolah' => 'required|string',
+            'fakultas' => 'required|string',
+            'prodi' => 'required|string',
+            'asal_negara' => 'required|string',
+            'telepon' => 'required|string',
+            'agama' => 'required|string',
+            'password' => 'required|min:6',
+        ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        User::create($validated);
+
+        return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login');
+    }
+
 
     public function logout(Request $request)
     {

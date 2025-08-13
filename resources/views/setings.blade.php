@@ -27,7 +27,7 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <div class="shrink-0">
-            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="size-8" style="filter: drop-shadow(0 0 5px white);"  />
+            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="w-10 h-10 rounded-full object-cover" style="filter: drop-shadow(0 0 5px white);"  />
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
@@ -51,7 +51,11 @@
               <button class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
-                <img src="{{ asset('img/user.png')}}"  class="size-8 rounded-full" />
+                <img 
+                    src="{{ Auth::user()->profile_picture ? asset('profile_picture/'.Auth::user()->profile_picture) . '?v=' . time() : asset('img/user.png') }}" 
+                    alt="{{ Auth::user()->name }}" 
+                    class="w-10 h-10 rounded-full object-cover"
+                />
               </button>
 
               <el-menu anchor="bottom end" popover class="w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
@@ -114,60 +118,70 @@
   </nav>
 
   {{-- Profil --}}
-    <div class="px-4 sm:px-0 flex flex-col items-center justify-center py-10">
-        {{-- <h3 class="text-base/7 font-semibold text-gray-900" >Data Diri</h3> --}}
-        {{-- <p class="mt-1 text-sm/6 text-gray-500">{{ $user->nim }}</p> --}}
-        <div class="flex flex-col items-center justify-center py-10">
-            <img src="{{ asset('img/user.png') }}" alt="" class="" style="width: 100px; height: 100px; object-fit: cover;">
-          <div>
-            <button class="mt-1 rounded-md bg-blue-500 px-3 py-1 text-sm/6 font-medium text-white hover:bg-blue-600 focus:outline-hidden focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-1">
-              Edit
-            </button>
-            <button class="mt-1 rounded-md bg-red-500 px-3 py-1 text-sm/6 font-medium text-white hover:bg-red-900 focus:outline-hidden focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-1">
-              Hapus
-            </button>
-          </div>
-        </div>    
-    </div>
+  <div class="px-4 sm:px-0 flex flex-col items-center justify-center py-0">
+    <div class="flex flex-col items-center justify-center py-10">
+    <img src="{{ Auth::user()->profile_picture ? asset('profile_picture/'.Auth::user()->profile_picture) . '?v=' . time() : asset('img/user.png') }}"
+         alt="Profil"
+         class="w-24 h-24 rounded-full border-2 border-gray-300 object-cover" >
 
-  {{-- Form ubah password --}}
-<div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800">Ganti Kata Sandi</h2>
-
-    <form action="{{ route('login') }}" method="POST">
+    <form action="{{ route('update.photo') }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-2">
         @csrf
-        @method('PUT')
-
-        <!-- Password Lama -->
-        <div class="mb-4">
-            <label for="password" class="block text-sm font-medium text-gray-700">Password Lama</label>
-            <input type="password" name="password" id="password"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm 
-                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-        </div>
-
-        <!-- Password Baru -->
-        <div class="mb-4">
-            <label for="password" class="block text-sm font-medium text-gray-700">Password Baru</label>
-            <input type="password" name="password" id="password"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm 
-                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-        </div>
-
-        <!-- Konfirmasi Password Baru -->
-        <div class="mb-6">
-            <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password Baru</label>
-            <input type="password" name="new_password_confirmation" id="new_password_confirmation"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm 
-                focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-        </div>
+        <input type="file" name="profile_picture" accept="image/*" required
+               class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none">
 
         <button type="submit"
-            class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Simpan Perubahan
+                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg">
+            Ganti Foto
         </button>
     </form>
+
+    @if(session('success'))
+        <p class="text-green-500 text-sm">{{ session('success') }}</p>
+    @endif
+
+    </div>
+</div>
+
+
+  {{-- Form ubah password --}}
+<div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mt-2">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Ganti Kata Sandi</h2>
+
+    <form action="{{ route('password.update') }}" method="POST">
+    @csrf
+    @method('PUT') {{-- pakai PUT untuk update data --}}
+
+    <!-- Password Lama -->
+    <div class="mb-4">
+        <label for="old_password" class="block text-sm font-medium text-gray-700">Password Lama</label>
+        <input type="password" name="old_password" id="old_password"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm 
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+    </div>
+
+    <!-- Password Baru -->
+    <div class="mb-4">
+        <label for="new_password" class="block text-sm font-medium text-gray-700">Password Baru</label>
+        <input type="password" name="new_password" id="new_password"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm 
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+    </div>
+
+    <!-- Konfirmasi Password Baru -->
+    <div class="mb-6">
+        <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password Baru</label>
+        <input type="password" name="new_password_confirmation" id="new_password_confirmation"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm 
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+    </div>
+
+    <button type="submit"
+        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Simpan Perubahan
+    </button>
+</form>
+
 </div>
 </div>
 

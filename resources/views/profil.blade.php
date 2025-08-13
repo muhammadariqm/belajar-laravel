@@ -14,6 +14,9 @@
     @vite('resources/css/app.css')
 
     {{-- js --}}
+    <link href="https://unpkg.com/cropperjs/dist/cropper.min.css" rel="stylesheet"/>
+<script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
+
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
 <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> 
@@ -27,7 +30,7 @@
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <div class="shrink-0">
-            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="size-10 rounded-full" style="filter: drop-shadow(0 0 5px white);"  />
+            <img src="{{ asset("img/OnePiece.png") }}" alt="Your Company" class="w-10 h-10 rounded-full object-cover" style="filter: drop-shadow(0 0 5px white);"  />
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
@@ -55,7 +58,11 @@
               <button class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
-                <img src="{{ asset('img/user.png')}}"  class="size-8 rounded-full" />
+                <img 
+                    src="{{ Auth::user()->profile_picture ? asset('profile_picture/'.Auth::user()->profile_picture) . '?v=' . time() : asset('img/user.png') }}" 
+                    alt="{{ Auth::user()->name }}" 
+                    class="w-10 h-10 rounded-full object-cover"
+                />
               </button>
 
               <el-menu anchor="bottom end" popover class="w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition transition-discrete [--anchor-gap:--spacing(2)] focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
@@ -131,7 +138,11 @@
         <h3 class="text-base/7 font-semibold text-gray-900" >Data Diri</h3>
         {{-- <p class="mt-1 text-sm/6 text-gray-500">{{ $user->nim }}</p> --}}
         <div class="">
-            <img src="{{ asset('img/user.png') }}" alt="" class="" style="width: 100px; height: 100px; object-fit: cover;">
+            <img 
+                    src="{{ Auth::user()->profile_picture ? asset('profile_picture/'.Auth::user()->profile_picture) . '?v=' . time() : asset('img/user.png') }}" 
+                    alt="{{ Auth::user()->name }}" 
+                    class="w-25 h-25 rounded-full object-cover"
+                />
         </div>    
   </div>
   <div class="mt-6 ">
@@ -178,11 +189,11 @@
       </div>
       <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Jenis Kelamin</dt>
-        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  Pria</dd>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->jenis_kelamin }}</dd>
       </div>
       <div class="px-4 py-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Asal Sekolah</dt>
-        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  -</dd>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">:  {{ $user->asal_sekolah }}</dd>
       </div>
     </dl>
   </div>
